@@ -1,11 +1,12 @@
 //FIND 3 LOGICAL ERROR
 class Person {
-  String? name;
+  String name;
   int age;
 
-  Person(String name, int age) {
-    this.name = name;
-    this.age = age;
+  Person({required this.name, required this.age}) {
+    if (age < 0) {
+      throw ArgumentError('Age cannot be negative.');
+    }
   }
 
   void greet() {
@@ -15,26 +16,14 @@ class Person {
 
 void main() {
   List<Person> people = [
-    Person('Alice', 30),
-    Person('Bob', 25),
-    Person('Charlie', 35),
-    Person('Dave', -5)
+    Person(name: 'Alice', age: 30),
+    Person(name: 'Bob', age: 25),
+    Person(name: 'Charlie', age: 35),
+    Person(name: 'Dave', age: -5), // This will throw an error
   ];
 
   for (Person person in people) {
-    if (person.age < 0) {
-      print('Error: Age cannot be negative.');
-    } else {
-      person.greet();
-    }
-  }
-
-  for (Person person in people) {
-    if (person.name == null) {
-      print('Error: Name cannot be null.');
-    } else {
-      print('Person ${person.name} has a valid name.');
-    }
+    person.greet();
   }
 
   Person oldestPerson = people[0];
@@ -43,7 +32,7 @@ void main() {
       oldestPerson = person;
     }
   }
-
   print(
       'The oldest person is ${oldestPerson.name} with ${oldestPerson.age} years.');
 }
+
