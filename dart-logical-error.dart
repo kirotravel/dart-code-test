@@ -1,7 +1,7 @@
 //FIND 3 LOGICAL ERROR
 class Person {
   String? name;
-  int age;
+  late int age; /* late for null safty*/
 
   Person(String name, int age) {
     this.name = name;
@@ -24,6 +24,8 @@ void main() {
   for (Person person in people) {
     if (person.age < 0) {
       print('Error: Age cannot be negative.');
+    } /*age can not be zero*/else if (person.age == 0) {
+      print('Error: Age cannot be zero.');
     } else {
       person.greet();
     }
@@ -32,6 +34,8 @@ void main() {
   for (Person person in people) {
     if (person.name == null) {
       print('Error: Name cannot be null.');
+    } /*use may be enter empty string .it is not null but still empty*/else if (person.name!.isEmpty) {
+      print('Error: Name cannot be empty.');
     } else {
       print('Person ${person.name} has a valid name.');
     }
